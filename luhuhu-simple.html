@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密货币学习报告 - luhuhu.com</title>
+    <style>
+        /* 极简样式，专为嵌入优化 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            margin: 0;
+            padding: 20px;
+            max-width: 100%;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-width: 100px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .progress {
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            width: 40%;
+            border-radius: 4px;
+        }
+        
+        .section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .content {
+            color: #555;
+        }
+        
+        .item {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+        
+        .item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+        
+        .status-done {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-doing {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-todo {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .update {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .stats {
+                gap: 10px;
+            }
+            
+            .stat {
+                min-width: 80px;
+                padding: 8px 15px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+        }
+        
+        /* 加载动画 */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 加密货币学习报告</h1>
+            <div class="subtitle">小泡饭 🍚 | 每4小时更新 | 同步到 luhuhu.com</div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="progress">40%</div>
+                    <div class="stat-label">学习进度</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="reports">3</div>
+                    <div class="stat-label">报告总数</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="next">04:12</div>
+                    <div class="stat-label">下次更新</div>
+                </div>
+            </div>
+            
+            <div class="progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+        
+        <div id="content">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>正在加载最新报告...</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2026 小泡饭 🍚 - 加密货币学习报告系统</p>
+            <div class="update">
+                <p><i class="fas fa-clock"></i> 最后更新: <span id="last-update">2026-02-21 00:12</span></p>
+                <p><i class="fas fa-sync-alt"></i> 下次更新: <span id="next-update">2026-02-21 04:12</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 直接加载最新报告
+        async function loadReport() {
+            try {
+                const response = await fetch('latest.md');
+                const text = await response.text();
+                displayReport(text);
+            } catch (error) {
+                document.getElementById('content').innerHTML = `
+                    <div class="section">
+                        <div class="section-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            加载错误
+                        </div>
+                        <div class="content">
+                            <p>无法加载报告: ${error.message}</p>
+                            <p>请检查网络连接或稍后重试。</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // 显示报告
+        function displayReport(markdown) {
+            const lines = markdown.split('\n');
+            let html = '';
+            let currentSection = '';
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                if (line.startsWith('## ')) {
+                    // 新章节
+                    const title = line.replace('## ', '');
+                    const icon = getIconForSection(title);
+                    
+                    if (currentSection) {
+                        html += '</div></div>';
+                    }
+                    
+                    html += `
+                        <div class="section">
+                            <div class="section-title">
+                                <i class="fas fa-${icon}"></i>
+                                ${title}
+                            </div>
+                            <div class="content">
+                    `;
+                    currentSection = title;
+                }
+                else if (line.startsWith('- ')) {
+                    // 列表项
+                    const item = line.replace('- ', '');
+                    const status = getStatus(item);
+                    const text = item.replace(/[✅🔴🟡🟢]/g, '').trim();
+                    
+                    html += `
+                        <div class="item">
+                            <span class="status status-${status.class}">${status.text}</span>
+                            ${text}
+                        </div>
+                    `;
+                }
+                else if (line && !line.startsWith('#') && !line.startsWith('---')) {
+                    // 普通段落
+                    html += `<p>${line}</p>`;
+                }
+            }
+            
+            if (currentSection) {
+                html += '</div></div>';
+            }
+            
+            document.getElementById('content').innerHTML = html;
+            updateDisplayInfo();
+        }
+        
+        // 获取章节图标
+        function getIconForSection(title) {
+            const icons = {
+                '学习进展': 'chart-line',
+                '社区线索': 'users',
+                '策略发现': 'lightbulb',
+                '模拟交易': 'chart-bar',
+                '风险评估': 'shield-alt',
+                '下一步计划': 'calendar-check'
+            };
+            return icons[title] || 'file-alt';
+        }
+        
+        // 获取状态
+        function getStatus(item) {
+            if (item.includes('✅')) return { class: 'done', text: '已完成' };
+            if (item.includes('🔴')) return { class: 'todo', text: '待开始' };
+            if (item.includes('🟡')) return { class: 'doing', text: '进行中' };
+            if (item.includes('🟢')) return { class: 'done', text: '已完成' };
+            return { class: 'todo', text: '待处理' };
+        }
+        
+        // 更新显示信息
+        function updateDisplayInfo() {
+            // 更新进度条
+            document.getElementById('progress-bar').style.width = '40%';
+            
+            // 更新时间信息
+            const now = new Date();
+            const next = new Date(now.getTime() + 4 * 60 * 60 * 1000);
+            
+            document.getElementById('last-update').textContent = 
+                now.toLocaleDateString('zh-CN') + ' ' + now.toLocaleTimeString('zh-CN', {hour: '2-digit', minute:'2-digit'});
+            
+            document.getElementById('next-update').textContent = 
+                next.toLocaleDateString('zh-CN') + ' ' + next.toLocaleTimeString('zh-CN', {hour: '2-digit', minute:'2-digit'});
+        }
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            loadReport();
+            
+            // 每5分钟检查更新
+            setInterval(loadReport, 5 * 60 * 1000);
+            
+            // 自适应iframe高度
+            window.addEventListener('load', function() {
+                const height = document.body.scrollHeight;
+                window.parent.postMessage({
+                    type: 'iframe-height',
+                    height: height
+                }, '*');
+            });
+        });
+        
+        // 监听内容变化，更新高度
+        const observer = new MutationObserver(function() {
+            const height = document.body.scrollHeight;
+            window.parent.postMessage({
+                type: 'iframe-height',
+                height: height
+            }, '*');
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密货币学习报告 - luhuhu.com嵌入版</title>
+    <style>
+        /* 重置样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+            padding: 20px;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* 容器 */
+        .embed-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        /* 头部 */
+        .embed-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .embed-header h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .embed-header .subtitle {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        .embed-header .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            min-width: 100px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        /* 进度条 */
+        .progress-container {
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            border-radius: 5px;
+            width: 40%;
+            transition: width 1s ease;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        /* 报告内容 */
+        .report-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #eaeaea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .report-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        /* 内容样式 */
+        .content-item {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #3498db;
+            padding-left: 15px;
+        }
+        
+        .content-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .item-title i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .item-content {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        .item-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .item-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .item-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .item-list li i {
+            margin-right: 10px;
+            color: #2ecc71;
+            font-size: 0.9rem;
+        }
+        
+        /* 状态标签 */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        /* 时间线 */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 20px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3498db;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: #3498db;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #3498db;
+        }
+        
+        .timeline-time {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-content {
+            color: #555;
+        }
+        
+        /* 底部信息 */
+        .embed-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .update-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: inline-block;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .embed-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .embed-header .stats {
+                gap: 15px;
+            }
+            
+            .stat-item {
+                min-width: 80px;
+            }
+            
+            .stat-value {
+                font-size: 1.3rem;
+            }
+            
+            .report-section {
+                padding: 20px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .section-icon {
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .embed-header .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-item {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .report-section {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .report-section:nth-child(2) { animation-delay: 0.1s; }
+        .report-section:nth-child(3) { animation-delay: 0.2s; }
+        .report-section:nth-child(4) { animation-delay: 0.3s; }
+        .report-section:nth-child(5) { animation-delay: 0.4s; }
+        .report-section:nth-child(6) { animation-delay: 0.5s; }
+        
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        
+        .loading i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #3498db;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 链接样式 */
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        /* 代码样式 */
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e74c3c;
+        }
+        
+        /* 工具提示 */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #7f8c8d;
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #2c3e50 transparent transparent transparent;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="embed-container">
+        <!-- 头部 -->
+        <div class="embed-header">
+            <h1>🚀 加密货币学习报告</h1>
+            <div class="subtitle">
+                小泡饭 🍚 的加密货币交易学习历程 | 每4小时更新 | 同步到 luhuhu.com
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="progress-value">40%</div>
+                    <div class="stat-label">学习进度</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="report-count">3</div>
+                    <div class="stat-label">报告总数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="today-count">3</div>
+                    <div class="stat-label">今日报告</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="next-update">04:12</div>
+                    <div class="stat-label">下次更新</div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text">
+                    <span>开始学习</span>
+                    <span>目标: 80%把握</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 报告内容容器 -->
+        <div id="report-content">
+            <div class="loading">
+                <i class="fas fa-spinner"></i>
+                <p>正在加载最新报告...</p>
+            </div>
+        </div>
+        
+        <!-- 底部信息 -->
+        <div class="embed-footer">
+            <p>© 2026 小泡饭 🍚 - 加密货币学习报告系统</p>
+            <p>本报告每4小时自动生成，专为 luhuhu.com 优化展示</p>
+            <div class="update-info">
+                <p><i class="fas fa-sync-alt"></i> 最后更新: <span id="last-update">2026-02-21 00:12</span></p>
+                <p><i class="fas fa-clock"></i> 下次更新: <span id="next-report-time">2026-02-21 04:12</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 加载最新报告
+        async function loadLatestReport() {
+            try {
+                const response = await fetch('latest.md');
+                if (!response.ok) throw new Error('加载失败');
+                
+                const markdown = await response.text();
+                renderReport(markdown);
+                updateStats();
+                
+            } catch (error) {
+                document.getElementById('report-content').innerHTML = `
+                    <div class="report-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="section-title">加载错误</div>
+                        </div>
+                        <div class="content-item">
+                            <div class="item-content">
+                                <p>抱歉，加载报告时出现错误: ${error.message}</p>
+                                <p>请稍后刷新页面重试，或联系系统管理员。</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // 渲染报告
+        function renderReport(markdown) {
+            // 简单解析Markdown（实际应该使用marked.js等库）
+            const lines = markdown.split('\n');
+            let html = '';
+            let currentSection = '';
+            
+            lines.forEach(line => {
+                // 解析标题
+                if (line.startsWith('# ')) {
+                    // 主标题已显示，跳过
+                }
+                else if (line.startsWith('## ')) {
+                    const title = line.replace('## ', '').trim();
+                    const icon = getSectionIcon(title);
+                    html += `
+                        <div class="report-section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-${icon}"></i>
+                                </div>
+                                <div class="section-title">${title}</div>
+                            </div>
+                    `;
+                    currentSection = title;
+                }
+                else if (line.startsWith('### ')) {
+                    const subtitle = line.replace('### ', '').trim();
+                    html += `
+                        <div class="content-item">
+                            <div class="item-title">
+                                <i class="fas fa-chevron-right"></i>
+                                ${subtitle}
+                            </div>
+                    `;
+                }
+                else if (line.trim() === '') {
+                    // 空行，关闭当前内容项
+                    if (html.endsWith('</div>')) {
+                        html += '</div>';
+                    }
+                }
+                else if (line.includes('✅') || line.includes('🔄') || line.includes('⏳')) {
+                    // 任务项
+                    const status = line.includes('✅') ? 'completed' : 
+                                  line.includes('🔄') ? 'in-progress' : 'pending';
+                    const text = line.replace(/[✅🔄⏳]/g, '').trim();
+                    
+                    html += `
+                        <div class="item-content">
+                            <ul class="item-list">
+                                <li>
+                                    <i class="fas fa-${getStatusIcon(status)}"></i>
+                                    ${text}
+                                </li>
+                            </ul>
+                        </div>
+                    `;
+                }
+                else if (line.startsWith('- ')) {
+                    // 列表项
+                    const text = line.replace('- ', '').trim();
+                    html += `
+                        <div class="item-content">
+                            <ul class="item-list">
+                                <li>
